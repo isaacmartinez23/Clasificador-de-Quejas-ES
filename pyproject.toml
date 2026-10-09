@@ -1,0 +1,72 @@
+[project]
+name = "spanish-complaints-nlp"
+version = "0.1.0"
+description = "Clasificación de quejas en español: TF-IDF vs. embeddings vs. LLM, con RAG y API"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "datasets>=5.1.0",
+    "es-core-news-sm",
+    "pandas>=3.0.6",
+    "pydantic>=2.14.0",
+    "python-dotenv>=1.2.4",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.9.1",
+    "spacy>=3.8.16",
+    "unidecode>=1.4.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+es-core-news-sm = { url = "https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.8.0/es_core_news_sm-3.8.0-py3-none-any.whl" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[dependency-groups]
+api = [
+    "fastapi>=0.143.0",
+    "uvicorn[standard]>=0.54.0",
+]
+demo = [
+    "gradio>=6.30.0",
+]
+dev = [
+    "httpx>=0.28.1",
+    "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
+embeddings = [
+    "sentence-transformers>=6.1.0",
+]
+experiments = [
+    "ipykernel>=7.4.0",
+    "matplotlib>=3.11.2",
+    "mlflow>=3.17.0",
+    "nbconvert>=7.17.1",
+    "seaborn>=0.13.2",
+]
+llm = [
+    "google-genai>=2.29.0",
+    "openai>=3.26.1",
+]
+rag = [
+    "chromadb>=1.5.9",
+    "langchain>=1.4.4",
+    "langchain-chroma>=1.1.0",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Los notebooks ajustan sys.path antes de importar el paquete del proyecto.
+"notebooks/*.ipynb" = ["E402"]

@@ -1,0 +1,98 @@
+# Taxonomía v1. Única fuente de verdad: la leen la herramienta de etiquetado,
+# el prompt del LLM, los modelos y los tests.
+version: 1
+
+# Una sola etiqueta por queja: el motivo PRINCIPAL. Si hay varios, gana el que
+# aparece primero en la lista "prioridad".
+prioridad: [entrega, postventa, incompleto, no_coincide, defectuoso, calidad, otro]
+
+temas:
+  entrega:
+    nombre: Entrega
+    definicion: El pedido no llegó, llegó tarde o hubo problemas con el reparto.
+    incluye:
+      - Nunca llegó o figura como entregado sin haberlo recibido
+      - Retrasos, envío cancelado o sin stock después de comprar
+      - Trato o manejo del repartidor
+    no_incluye:
+      - Llegó roto por el transporte (defectuoso)
+      - Llegó con piezas o unidades de menos (incompleto)
+
+  defectuoso:
+    nombre: Producto defectuoso
+    definicion: El producto llegó roto o dañado, no funciona, o se rompió o dejó de funcionar al poco tiempo.
+    incluye:
+      - Llegó roto, rayado, abierto o usado
+      - No enciende, no carga, una función no funciona
+      - Se rompió o falló a los días o semanas de uso
+    no_incluye:
+      - Funciona, pero rinde poco o parece endeble sin haberse roto (calidad)
+
+  no_coincide:
+    nombre: No coincide con lo anunciado
+    definicion: Lo recibido es distinto de lo que se anunciaba o no sirve para el uso que se prometía.
+    incluye:
+      - Otro producto, modelo, color o marca; falsificación
+      - Talla, medidas o capacidad distintas de las indicadas
+      - No es compatible con el dispositivo para el que se vende
+      - La foto o la descripción inducen a error
+    no_incluye:
+      - Faltan piezas de lo anunciado (incompleto)
+
+  incompleto:
+    nombre: Pedido incompleto
+    definicion: Faltan unidades, piezas, accesorios o instrucciones.
+    incluye:
+      - Llegaron menos unidades de las compradas
+      - Falta un accesorio, cable, tornillo o las instrucciones en español
+
+  calidad:
+    nombre: Calidad o desempeño
+    definicion: El producto funciona y es el anunciado, pero es de mala calidad o rinde menos de lo esperado.
+    incluye:
+      - Materiales o acabados pobres, endeble, incómodo
+      - Rinde poco, es ineficaz, hace ruido, pierde señal
+      - Mala relación calidad-precio
+    no_incluye:
+      - Ya se rompió o dejó de funcionar (defectuoso)
+
+  postventa:
+    nombre: Postventa y cobros
+    definicion: El problema es la respuesta de la tienda después de la compra, o el dinero.
+    incluye:
+      - Devolución o reembolso negado, lento o con coste
+      - Garantía no respetada
+      - Vendedor o soporte que no responde o responde mal
+      - Cobro indebido, doble cargo o precio distinto del anunciado
+    no_incluye:
+      - Menciona que lo devolvió, sin quejarse del proceso (usar el motivo de la devolución)
+
+  otro:
+    nombre: Otro / no es una queja
+    definicion: No encaja en ninguna categoría o no describe un problema concreto.
+    incluye:
+      - Gusto personal (sabor, olor, contenido de un libro, película o juego)
+      - Insatisfacción genérica sin motivo ("malísimo", "no lo recomiendo")
+      - No pudo probarlo o la reseña no trata del producto
+
+urgencias:
+  alta:
+    nombre: Alta
+    definicion: Hay un riesgo o una pérdida sin resolver que exige actuar ya.
+    criterios:
+      - Riesgo para la seguridad o la salud (quemaduras, incendio, alergia, producto caducado)
+      - El producto dañó otros bienes del cliente
+      - Pagó y no tiene ni el producto ni el reembolso
+  media:
+    nombre: Media
+    definicion: El cliente se quedó sin un producto utilizable y necesita reemplazo, devolución o reparación.
+    criterios:
+      - Producto inservible, equivocado o incompleto, sin indicios de que ya se resolvió
+      - Pide o espera una acción concreta de la tienda
+  baja:
+    nombre: Baja
+    definicion: No hay nada que atender con prisa.
+    criterios:
+      - Producto utilizable pero decepcionante
+      - El problema ya se resolvió (lo devolvió, le reembolsaron, le enviaron otro)
+      - Opinión sin pérdida concreta ni petición

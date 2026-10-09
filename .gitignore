@@ -1,0 +1,29 @@
+# Entorno y secretos
+.venv/
+.env
+
+# Datos: se regeneran con src/data/download.py (los textos no se redistribuyen)
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Experimentos, índices y cachés
+mlruns/
+mlartifacts/
+chroma_db/
+.cache/
+*.npy
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
